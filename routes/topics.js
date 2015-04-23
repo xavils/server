@@ -29,15 +29,18 @@ exports.register = function(server, options, next) {
 				handler: function(request, reply) {
 					var db = request.server.plugins['hapi-mongodb'].db;
     			var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+    			var username;
 
 					Auth.authenticated(request, function(result) {
 						if (result.authenticated === true) {
 							console.log(request.session);
 		    			var session = request.session.get('hashtopics_session');
+		    			
 		    			var topic = {
 		    				"title": request.payload.topic.title,
 		    				"message": request.payload.topic.message,
-		    				"user_id": ObjectID(session.user_id)
+		    				"user_id": ObjectID(session.user_id),
+		    				"username": user_id.username
 		    			};
         			db.collection('topics').insert(topic, function(err, writeResult) {
         				reply(writeResult);
@@ -69,6 +72,30 @@ exports.register = function(server, options, next) {
           var randomIndex = Math.floor(Math.random() * result.length);
           reply(result[randomIndex]);
         })
+      }
+    },
+    //get 12 random topics
+    {
+      method: 'GET',
+      path: '/topics/12random',
+      handler: function(request, reply) {
+        var db = request.server.plugins['hapi-mongodb'].db;
+        db.collection('topics').find().toArray(function(err, topics){
+          if (err) throw err;
+				  var randomIndex;
+				  var result = [];
+				  
+				  while (result.length < 12) {
+				    
+				    randomIndex = Math.floor(Math.random() *  (topics.length - 1));
+				    
+				    if (result.indexOf(topics[randomIndex]) === -1){
+				        result.push(topics[randomIndex]);
+				    }
+				  }
+
+				  reply(result);
+        });
       }
     },
     //get a user's topics
