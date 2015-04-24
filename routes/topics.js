@@ -29,22 +29,23 @@ exports.register = function(server, options, next) {
 				handler: function(request, reply) {
 					var db = request.server.plugins['hapi-mongodb'].db;
     			var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-    			var username;
 
 					Auth.authenticated(request, function(result) {
 						if (result.authenticated === true) {
-							console.log(request.session);
 		    			var session = request.session.get('hashtopics_session');
-		    			
-		    			var topic = {
-		    				"title": request.payload.topic.title,
-		    				"message": request.payload.topic.message,
-		    				"user_id": ObjectID(session.user_id),
-		    				"username": user_id.username
-		    			};
-        			db.collection('topics').insert(topic, function(err, writeResult) {
-        				reply(writeResult);
-        			})
+							console.log(request.session);
+		    			db.collection('users').findOne({ "_id": ObjectID(session.user_id) }, function(err, user) {
+
+			    			var topic = {
+			    				"title": request.payload.topic.title,
+			    				"message": request.payload.topic.message,
+			    				"user_id": ObjectID(session.user_id),
+			    				"username": user.username
+			    			};
+	        			db.collection('topics').insert(topic, function(err, writeResult) {
+	        				reply(writeResult);
+	        			})
+	        		});
 						} else {
 							reply(result.message);
 						}

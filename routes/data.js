@@ -181,7 +181,7 @@ exports.register = function(server, options, next) {
 						username: "michaelchow"
 					},
 					{
-						titles: ["barcelona, sights, antiaircraftBatteries"],
+						titles: ["barcelona", "sights", "antiaircraftBatteries"],
 						message: "This is a site recently restored in collaboration between local neighbors, former residents, the MUHBA (Barcelona HIstory Museum), architects, and the Memorial Democratic. It was an anti-aircraft battery in use by the Spanish Republican government to defend Barcelona from aerial bombardments from fascist General Francisco Franco and his Italian Fascist allies.",
 						user_id: "5537581977caa5e20adf6672",
 						username: "dimpleyuen"
