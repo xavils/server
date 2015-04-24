@@ -19,9 +19,12 @@ module.exports.authenticated = function(request, callback) {
 				'authenticated': false
 			});
 		} else {
-			return callback({
-				'message': 'Logged in',
-				'authenticated': true	
+			db.collection('users').findOne({ "_id": result.user_id }, function(err, user) {
+				return callback({
+					'message': 'Logged in',
+					'authenticated': true,
+					'username': user.username	
+				});
 			});
 		}
 	});

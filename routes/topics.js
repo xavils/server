@@ -37,7 +37,7 @@ exports.register = function(server, options, next) {
 		    			db.collection('users').findOne({ "_id": ObjectID(session.user_id) }, function(err, user) {
 
 			    			var topic = {
-			    				"title": request.payload.topic.title,
+			    				"titles": request.payload.topic.titles,
 			    				"message": request.payload.topic.message,
 			    				"user_id": ObjectID(session.user_id),
 			    				"username": user.username
@@ -55,7 +55,7 @@ exports.register = function(server, options, next) {
 					payload: {
 						topic: {
 							message: Joi.string().max(455).required(),
-							title: Joi.string().max(55).required()
+							titles: Joi.required()
 						}
 					}
 				}

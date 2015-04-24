@@ -19,13 +19,13 @@ exports.register = function(server, options, next) {
 							if (err) {
 								return reply('Internal MongoDB error', err);
 							}
-
 							db.collection('topics').find({ "user_id": user._id }).toArray(function(err, topics) {
 								if (err) {
 									return reply('Internal MongoDB error', err);
 								}
 								return reply(topics);
 							});
+							return reply(user);
 						});
 		 			} else {
 			 			return reply(topics);
