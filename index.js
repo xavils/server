@@ -5,12 +5,8 @@ var server = new Hapi.Server();
 server.connection({ 
     host: '0.0.0.0', 
     port: process.env.PORT || 8000,
-    {
-      cors: true
-    }
+    routes: { cors: true }
 });
-
-app.routes(server);
 
 var plugins = [
 	{ register: require('./routes/users.js')},
