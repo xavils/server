@@ -21,7 +21,7 @@ var plugins = [
   { 
     register: require('hapi-mongodb'),
     options: {
-      'url' : 'mongodb://xavils:harrychen@ds043012.mongolab.com:43012/heroku_app37366178',
+      'url' : process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/hashtopics',
       'settings' : {
         'db': {
           'native_parser': true
