@@ -21,7 +21,7 @@ var plugins = [
   { 
     register: require('hapi-mongodb'),
     options: {
-      'url' : '% mongo ds012345.mongolab.com:56789/dbname -u dbuser -p dbpassword',
+      'url' : 'mongodb://xavils:harrychen@ds043012.mongolab.com:43012/heroku_app37366178',
       'settings' : {
         'db': {
           'native_parser': true
